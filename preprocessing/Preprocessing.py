@@ -5,7 +5,7 @@ import SQLSystem as sql
 from sklearn.preprocessing import OrdinalEncoder
 
 def main():
-    preprocess("preprocessing/AIS/aisdk-2025-03-10/aisdk-2025-03-10.csv")
+    preprocess("preprocessing/test.csv")
 
 def preprocess(csv_file_path):
     #----------------------------------#
