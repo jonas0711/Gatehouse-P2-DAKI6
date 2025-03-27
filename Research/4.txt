@@ -1,0 +1,351 @@
+# Existing Approaches for Ship Destination and Route Prediction Using AIS Data: Non-Deep Learning Methods
+
+The prediction of ship destinations and routes based on Automatic Identification System (AIS) data represents a significant area of research in maritime transportation intelligence. This analysis examines current methodologies that avoid deep learning and neural networks, focusing instead on traditional machine learning and statistical approaches. Recent research demonstrates that effective predictive models can be built using linear regression, spatiotemporal analysis, and pattern recognition techniques applied to AIS data. These approaches offer robust solutions for maritime traffic management while maintaining interpretability and computational efficiency compared to more complex neural network architectures.
+
+## Understanding AIS Data for Maritime Analysis
+
+AIS data serves as the foundation for modern maritime traffic analysis and prediction systems. The data structure provided by Gatehouse Maritime contains 26 fields that offer comprehensive information about vessel movements, characteristics, and navigation parameters. This rich dataset encompasses spatial coordinates (latitude and longitude), temporal information (timestamps), vessel identification (MMSI, IMO numbers), physical characteristics (length, width, draught), and operational parameters (SOG, COG, heading, navigational status). The combination of these parameters creates a multidimensional space that can be analyzed to extract patterns and develop predictive models for ship behavior and destination selection.
+
+### The Value of AIS Data in Maritime Research
+
+Automatic Identification System data has transformed maritime traffic management by providing near real-time information about vessel movements. Research indicates that AIS data enables comprehensive analysis of ship behavior patterns, which can be leveraged for various applications beyond basic tracking. For instance, studies have demonstrated that proper characterization of AIS data for port tugs helps identify and analyze maneuver services, improving planning and assessment of tug operations[2]. This characterization focuses on parameters such as Speed Over Ground (SOG), which typically ranges from 0-13 knots for tugs, and Navigational Status (NS), which shows varied usage patterns across vessel fleets[2]. The analysis of ping frequency and data gaps reveals dependencies on external factors including equipment specifications, technical issues, human factors, and traffic density[2].
+
+### Challenges and Preprocessing Requirements
+
+While AIS data offers tremendous potential, it requires careful preprocessing and handling to be effectively utilized in predictive models. Data gaps, inconsistent ping frequencies, and variations in reporting standards present challenges that must be addressed before analysis. Research shows that the quality of AIS data can vary significantly depending on technical issues and external factors such as equipment used and traffic density[2]. A critical step in AIS data preparation involves filtering out anomalous readings, handling missing values, and standardizing reporting formats. This preprocessing stage establishes the foundation for reliable analysis and ensures that predictive models are built on accurate representations of maritime traffic patterns.
+
+## Statistical Methods for Ship Traffic Analysis
+
+Statistical approaches form the backbone of non-deep learning methods for analyzing maritime traffic and predicting vessel destinations. These methods leverage statistical properties of AIS data to identify patterns, correlations, and trends that inform predictive models.
+
+### Linear Regression Models for Traffic Analysis
+
+Linear regression modeling has proven effective in analyzing spatial relationships in maritime traffic data. Research demonstrates that by using speed and traffic volume characteristics as indicators, linear regression models can effectively identify areas with high collision risks[1]. The Analytic Hierarchy Process (AHP) complements this approach by enabling comprehensive evaluation of relative hazard levels in specific areas, thereby determining the relative consequences of regional hazards (RCORH)[1]. This combined methodology has positive implications for improving navigation safety management in port waters and can be adapted to predict vessel destinations by analyzing historical movement patterns and correlating them with destination choices.
+
+### Spatiotemporal Distribution Analysis
+
+The spatiotemporal distribution of ship traffic offers valuable insights for predicting future movements and destinations. Statistical analysis of traffic flow patterns over time and space reveals regularities that can be modeled mathematically. The characterization of spatiotemporal distribution involves analyzing various parameters such as vessel density, speed variations, directional flow, and temporal patterns across different regions[1]. By quantifying these distributions, researchers can identify typical approaches to specific ports, standard routes between destinations, and temporal patterns that correlate with port arrivals. This statistical foundation supports robust prediction models without requiring the complexity of neural networks.
+
+## Traditional Machine Learning Approaches for Port Prediction
+
+Beyond basic statistical methods, traditional machine learning algorithms offer powerful tools for destination and route prediction when applied to AIS data. These approaches balance predictive power with interpretability and computational efficiency.
+
+### Classification and Regression Tree Methods
+
+Decision trees and their ensemble variants such as Random Forests and Gradient Boosting Machines provide effective frameworks for port prediction based on AIS data. These methods naturally handle the mix of categorical and numerical features present in AIS data, such as navigational status, ship type, and dimensional characteristics. They can capture non-linear relationships between variables without requiring the extensive training data or computational resources of deep learning approaches. The hierarchical structure of decision trees also offers interpretability, allowing maritime analysts to understand the factors influencing destination predictions.
+
+### Feature Engineering for Maritime Traffic Models
+
+The effectiveness of traditional machine learning models heavily depends on thoughtful feature engineering based on domain knowledge. Research indicates that derived features such as heading changes, speed variations, and distance to potential ports significantly enhance prediction accuracy. For example, analyzing the relationship between a vessel's course over ground (COG) and the bearing to various potential destinations can serve as a strong predictor of the intended port[1]. Similarly, patterns in speed reduction as vessels approach port areas provide valuable predictive signals. Feature engineering transforms raw AIS data into meaningful inputs that capture maritime behavior patterns that traditional algorithms can effectively leverage.
+
+## Spatiotemporal Models for Ship Trajectory Prediction
+
+Spatiotemporal modeling represents an essential approach for predicting ship movements and destinations without relying on deep learning architectures. These methods explicitly incorporate both the spatial and temporal dimensions of maritime traffic.
+
+### Correlation-Based Graph Models
+
+Recent research demonstrates the effectiveness of graph-based models that utilize correlation matrices to represent relationships between different spatial areas in port waters. While some implementations like the TG-PGAT model incorporate neural network components, the underlying concept of modeling spatial dependencies through correlation matrices can be adapted to non-neural approaches[3]. By constructing an adjacency matrix based on Pearson correlation coefficients between different spatial regions, researchers can capture how traffic patterns in one area influence another without requiring deep learning architectures[3]. This approach is particularly valuable for understanding the complex spatial dependencies in port approaches and accurately predicting vessel destinations.
+
+### Time Series Analysis for Trajectory Prediction
+
+Time series analysis provides powerful tools for modeling the temporal aspects of vessel movements. Methods such as ARIMA (Autoregressive Integrated Moving Average), exponential smoothing, and Markov models can capture the sequential nature of ship movements and predict future positions. These approaches analyze patterns in historical trajectory data to identify regular behaviors and predict likely future paths. Research indicates that the temporal analysis of AIS data reveals consistent patterns in vessel approaches to specific ports, which can be leveraged to predict not only the destination but also the estimated time of arrival[3]. By combining spatial modeling with time series analysis, researchers can develop comprehensive predictive frameworks without relying on deep learning methods.
+
+## Practical Applications and Case Studies
+
+Examining existing implementations of AIS-based prediction systems provides valuable insights into effective methodologies and practical considerations for developing non-deep learning solutions.
+
+### Port Traffic Flow Prediction and Management
+
+The accurate prediction of ship traffic flow is essential for developing intelligent maritime transportation systems. Research demonstrates that spatiotemporal models can effectively predict traffic flow in port waters by capturing both spatial and temporal dependencies[3]. For instance, the experimental results of visualization show that such models exhibit significant predictive advantages in densely trafficked areas of ports and even outperform other models in surrounding areas with sparse traffic flow data[3]. These applications highlight the practical value of spatiotemporal approaches for port management and suggest similar methodologies could be effective for predicting individual vessel destinations.
+
+### Port Emissions Assessment and Environmental Applications
+
+Beyond traffic management, AIS data enables important environmental applications through the assessment of port emissions. Research details methods for local-scale emission measurements conducted in ports, integrating AIS data to superimpose concentrations of pollutants measured ashore with emissions from moored ships[4]. This environmental application demonstrates the versatility of AIS data analysis and suggests that similar integrated approaches could be valuable for destination prediction. By analyzing historical patterns of vessels with similar characteristics, researchers can develop probabilistic models of likely destinations without requiring deep learning architectures.
+
+## Methodological Framework for Destination Prediction
+
+Building on the reviewed approaches, a methodological framework for predicting ship destinations can be constructed that leverages the strengths of non-deep learning techniques while addressing the specific requirements of the Gatehouse Maritime project.
+
+### Feature Selection and Engineering
+
+The foundation of an effective prediction model lies in selecting and engineering features that strongly correlate with destination choice. From the available AIS data fields, several parameters offer particular predictive value. Navigational status provides context for a vessel's current operations, with status codes like "Under way using engine" or "At anchor" suggesting different likelihoods of imminent port arrival[2]. Speed over ground (SOG) and course over ground (COG) patterns can indicate approach to specific harbors, as vessels typically follow characteristic speed and course profiles when approaching different ports[1]. Additionally, derived features such as distance to potential ports, alignment between heading and port bearing, and historical patterns of similar vessels significantly enhance predictive power.
+
+### Ensemble Methods for Robust Prediction
+
+The integration of multiple predictive approaches through ensemble methods offers a robust framework for destination prediction. By combining statistical models, classification algorithms, and time series analysis, an ensemble approach leverages the strengths of each method while mitigating their individual weaknesses. Research demonstrates that ensemble methods achieve higher prediction accuracy and stability than individual models[3]. A weighted voting scheme that considers the historical accuracy of each component model can further enhance prediction reliability. This ensemble framework provides a comprehensive approach to destination prediction without requiring the complexity and computational demands of deep learning models.
+
+## Implementation Considerations for the Gatehouse Maritime Project
+
+The application of AIS-based prediction methods to the Gatehouse Maritime project requires careful consideration of practical implementation aspects and performance optimization strategies.
+
+### Data Preprocessing and Quality Assurance
+
+Effective preprocessing of the provided AIS data represents a critical first step in developing accurate prediction models. Research indicates that AIS data often contains irregularities such as scattered use of navigational status definitions throughout vessel fleets and variable ping frequencies that depend on factors including equipment specifications and traffic density[2]. A robust preprocessing pipeline should address these challenges through anomaly detection, standardization of status codes, and intelligent handling of missing values. Particular attention should be paid to the cleaning and validation of destination fields in historical data, as these will serve as the ground truth for training prediction models.
+
+### Computational Efficiency and Scaling Considerations
+
+While avoiding the computational demands of deep learning models, traditional machine learning approaches still require careful optimization for efficient processing of large-scale AIS datasets. Implementing efficient data structures for spatial indexing, such as R-trees or quadtrees, can significantly improve query performance when analyzing vessel proximity to potential ports. Additionally, incremental learning approaches allow models to update predictions as new AIS messages arrive without requiring complete retraining. These optimization strategies ensure that the prediction system remains responsive and accurate while processing continuous streams of AIS data from multiple vessels simultaneously.
+
+## Conclusion
+
+The analysis of existing approaches to ship destination and route prediction using AIS data reveals a rich landscape of non-deep learning methodologies that offer powerful alternatives to neural network architectures. Statistical methods, traditional machine learning algorithms, and spatiotemporal models provide effective frameworks for understanding maritime traffic patterns and predicting vessel behavior. The Analytic Hierarchy Process combined with linear regression models has demonstrated success in identifying high-risk collision areas, suggesting similar approaches could effectively predict destinations[1]. Correlation-based graph models capture complex spatial relationships without requiring deep learning structures[3], while time series analysis addresses the temporal aspects of vessel movements.
+
+For the Gatehouse Maritime project focusing on port prediction and route forecasting, a hybrid approach that combines multiple complementary methods within an ensemble framework offers the most promising direction. By carefully selecting and engineering features from the provided AIS data fields, developing specialized models for different vessel types and regions, and implementing efficient data processing pipelines, a robust prediction system can be developed without relying on deep learning or neural networks. Future work might explore the integration of additional contextual data such as weather conditions, port scheduling information, and historical traffic patterns to further enhance prediction accuracy while maintaining the interpretability and efficiency advantages of traditional methods.
+
+Citations:
+[1] https://www.semanticscholar.org/paper/3a18e3d50dddee63682c8330b6e36193f9af710c
+[2] https://www.semanticscholar.org/paper/e69bcdcab5f44137c1e73144a6dd54a7f4282f4a
+[3] https://www.semanticscholar.org/paper/bfc0569ab6ab4511682f01bc4148b9ace4e96b3f
+[4] https://www.semanticscholar.org/paper/a7bd19718ac6ba39f25edfd2a9878a041507ba49
+[5] https://www.semanticscholar.org/paper/00f23f9123aa6db51149027509c877add5980ab9
+[6] https://www.semanticscholar.org/paper/4b5209e8ba57fc0472d9b35efc4e4c62ac6b54f1
+[7] https://www.reddit.com/r/Denmark/comments/16sfwsm/programmeringsfolk_har_et_sp%C3%B8rgsm%C3%A5l_til_jer/
+[8] https://www.reddit.com/r/csMajors/comments/1i2r9cj/what_do_you_think_about_jensen_huang_trashing_all/
+[9] https://www.reddit.com/r/Tinder/comments/yrt6p7/tried_to_get_a_tinder_date_using_artificial/
+[10] https://www.raymarine.com/da-dk/laering/online-vejledninger/automatic-identification-system
+[11] https://www.flyrank.com/da/blogs/ai-insights/how-does-ai-improve-decision-making-in-freight-management
+[12] https://www.aimentor.dk/ordbog/machine-learning-vs-deep-learning-hvad-er-forskellen/
+[13] https://www.ai-portalen.dk/hvad-er-ai-overvaaget-vs-ikke-overvaaget-laering/
+[14] https://www.vesselfinder.com/realtime-ais-data
+[15] https://marineradar.de/da/
+[16] https://www.reddit.com/r/learnmachinelearning/comments/wq1woe/can_someone_give_me_an_example_of_ai_thats_not/
+[17] https://www.reddit.com/r/MachineLearning/comments/9826bt/d_why_is_deep_learning_so_bad_for_tabular_data/
+[18] https://www.reddit.com/r/MachineLearning/comments/tsffzi/d_is_quantum_ml_pointless/
+[19] https://www.reddit.com/r/MachineLearning/comments/18ugzji/d_i_dont_think_llms_are_ai_and_heres_why/
+[20] https://www.reddit.com/r/OpenAI/comments/1cveifd/geoffrey_hinton_says_ai_language_models_arent/
+[21] https://www.reddit.com/r/programming/comments/ykdwtv/scientists_increasingly_cant_explain_how_ai_works/
+[22] https://www.adb.org/sites/default/files/publication/919676/unlocking-maritime-insights-ais-data.pdf
+[23] http://danmarkslodshistorie.dk/wp-content/uploads/2021/05/Fremtidens-skibsfart.pdf
+[24] https://www.econstor.eu/bitstream/10419/209386/1/hicl-2019-28-003.pdf
+[25] https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2780189
+[26] https://orbit.dtu.dk/en/publications/port-selection-by-container-ships-a-big-ais-data-analytics-approa
+[27] https://www.flyrank.com/da/blogs/ai-insights/how-ai-predicts-market-changes-affecting-supply-chains
+[28] https://www.semanticscholar.org/paper/f450976a0f0e3189d757c83b4f3fcc7c53e40883
+[29] https://www.semanticscholar.org/paper/53c6cd87abeb97206eb59059525daae98299189b
+[30] https://www.semanticscholar.org/paper/f6796100a6a010743be9580e71eca737ff576499
+[31] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7517073/
+[32] https://www.semanticscholar.org/paper/8b497e55084f348b3c24f1070f9ff4561ed28944
+[33] https://www.semanticscholar.org/paper/bfc0569ab6ab4511682f01bc4148b9ace4e96b3f
+[34] https://www.reddit.com/r/leagueoflegends/comments/u6gdrf/say_we_make_a_perfect_ai_could_it_have_100/
+[35] https://www.reddit.com/r/computerscience/comments/t8hdut/is_pathfinding_considered_artificial_intelligence/
+[36] https://www.reddit.com/r/datasets/comments/83ww4p/any_source_for_ship_ais_data/
+[37] https://www.reddit.com/r/learnmachinelearning/comments/16m3gx7/do_aibased_trading_bots_actually_work_for/
+[38] https://www.reddit.com/r/MachineLearning/comments/18ugzji/d_i_dont_think_llms_are_ai_and_heres_why/
+[39] https://www.reddit.com/r/sailing/comments/1irpfln/im_losing_my_mind_juggling_weather_apps_anchor/
+[40] https://www.tandfonline.com/doi/full/10.1080/03088839.2023.2165185
+[41] https://orbit.dtu.dk/files/271737108/sensors_22_02058_v2.pdf
+[42] https://www.econstor.eu/bitstream/10419/209386/1/hicl-2019-28-003.pdf
+[43] https://sonar.rero.ch/hesso/documents/315176
+[44] http://researchonline.ljmu.ac.uk/21977/1/Incorporation%20of%20AIS%20data%20based%20machine%20learning%20into%20unsupervised%20route%20planning%20for%20maritime%20autonomous%20surface%20ships.pdf
+[45] https://spire.com/case-study/maritime/predicting-port-berth-arrivals/
+[46] https://www.semanticscholar.org/paper/f6796100a6a010743be9580e71eca737ff576499
+[47] https://www.semanticscholar.org/paper/568ce6418bb4dc7cdc8bfc48547272b868dca290
+[48] https://www.semanticscholar.org/paper/04ec879e8b74ad919ffbc15c8658ed630b7c95c7
+[49] https://www.semanticscholar.org/paper/6ecff2b9161b2a968180242b5087dc3f88df4783
+[50] https://www.semanticscholar.org/paper/90a6bb054c500a0f046e42773f3f2e5144404200
+[51] https://www.semanticscholar.org/paper/8b4fc7397f58902575ffe0ef9521f12b027b98c8
+[52] https://www.reddit.com/r/MachineLearning/comments/eyg2hv/d_does_actual_knowledge_even_matter_in_the_real/
+[53] https://www.reddit.com/r/MachineLearning/comments/18ugzji/d_i_dont_think_llms_are_ai_and_heres_why/
+[54] https://www.reddit.com/r/learnmachinelearning/comments/wq1woe/can_someone_give_me_an_example_of_ai_thats_not/
+[55] https://www.reddit.com/r/MachineLearning/comments/t2r7ph/d_simple_questions_thread/
+[56] https://www.reddit.com/r/SimCity/comments/1adfsq/how_maxis_can_improve_simcitys_pathfinding_ai/
+[57] https://www.reddit.com/r/computerscience/comments/vutfac/how_effective_are_neural_networks_in_weather/
+[58] https://www.cso.ie/en/releasesandpublications/fp/fp-pvrts/portvisitsusingreal-timeshippingdata/
+[59] https://researchonline.ljmu.ac.uk/23943/1/Ship%20trajectory%20prediction%20based%20on%20machine%20learning%20and%20deep%20learning%20A%20systematic%20review%20and%20methods%20analysis.pdf
+[60] https://aisel.aisnet.org/icis1992/31/
+[61] https://orbit.dtu.dk/files/344654450/1-s2.0-S2210539523001244-main.pdf
+[62] https://orbit.dtu.dk/files/271737108/sensors_22_02058_v2.pdf
+[63] https://arxiv.org/abs/2101.02486
+[64] https://www.semanticscholar.org/paper/3e9aaa3cd6a6b833b5c66064e0d04060ec235d0e
+[65] https://www.semanticscholar.org/paper/7bd3afca743ac0a26ffa758f195efd2a3c43f80b
+[66] https://www.semanticscholar.org/paper/3a18e3d50dddee63682c8330b6e36193f9af710c
+[67] https://www.semanticscholar.org/paper/70f3d6748ff19e278952fed4365d1b5081de3091
+[68] https://www.semanticscholar.org/paper/e69bcdcab5f44137c1e73144a6dd54a7f4282f4a
+[69] https://www.semanticscholar.org/paper/4dce9ef2cd33f9c4d8ca99a48d69c0ca3447f3b2
+[70] https://www.reddit.com/r/TrinidadandTobago/comments/1ahi0w2/thoughts_on_switching_the_courier_service_for_us/
+[71] https://www.reddit.com/r/SimCity/comments/1adfsq/how_maxis_can_improve_simcitys_pathfinding_ai/
+[72] https://www.reddit.com/r/MachineLearning/comments/t2r7ph/d_simple_questions_thread/
+[73] https://www.reddit.com/r/MachineLearning/comments/18ugzji/d_i_dont_think_llms_are_ai_and_heres_why/
+[74] https://www.reddit.com/r/JapanTravel/comments/1frwhn7/16_day_itinerary_what_do_you_think_me_and_my/
+[75] https://www.reddit.com/r/singularity/comments/18hl2l9/why_nexttoken_prediction_is_enough_for_agi_ilya/
+[76] https://papers.ssrn.com/sol3/Delivery.cfm/5158249.pdf?abstractid=5158249&mirid=1
+[77] https://ieeecai.org/2024/wp-content/pdfs/540900b299/540900b299.pdf
+[78] https://www.portmaps.com/eng/aiss/arima-477186000
+[79] https://orbit.dtu.dk/files/267486265/CAMS2021_traj.pdf
+[80] https://www.maritimeoptima.com/insights/expanding-our-knowledge-of-maritime-trade-with-ais-and-explainable-ai-systems
+[81] https://www.mdpi.com/2076-3417/11/5/2429
+[82] https://www.semanticscholar.org/paper/37dada67a6f460494f51fd1584a0e8ca764b4b37
+[83] https://arxiv.org/abs/2203.05757
+[84] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11500964/
+[85] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10862857/
+[86] https://www.semanticscholar.org/paper/1c4f21db02804026b0244cd05fbbfcd07d904f14
+[87] https://www.semanticscholar.org/paper/6d08438723b6ff246796c3849e93d4c2da5bb958
+[88] https://www.reddit.com/r/MachineLearning/comments/eyg2hv/d_does_actual_knowledge_even_matter_in_the_real/
+[89] https://www.reddit.com/r/SimCity/comments/1adfsq/how_maxis_can_improve_simcitys_pathfinding_ai/
+[90] https://www.reddit.com/r/sailing/comments/6spxg7/cheapest_way_to_get_weather_reports_while_offshore/
+[91] https://www.reddit.com/r/MachineLearning/comments/t2r7ph/d_simple_questions_thread/
+[92] https://www.reddit.com/r/MachineLearning/comments/18ugzji/d_i_dont_think_llms_are_ai_and_heres_why/
+[93] https://www.reddit.com/r/sailing/comments/191aepe/software_you_wish_you_had_as_a_sailor/
+[94] https://www.kpler.com/ja/publications/scalable-in-database-machine-learning-for-the-prediction-of-port-to-port-routes
+[95] https://ieeecai.org/2024/wp-content/pdfs/540900b299/540900b299.pdf
+[96] https://crexdata.eu/wp-content/uploads/2024/01/EnvClus_Extracting_Common_Pathways_for_Effective_Vessel_Trajectory_Forecasting.pdf
+[97] https://www.awake.ai/post/ai-for-smart-ports-port-call-prediction-part2
+[98] https://orbit.dtu.dk/files/267486265/CAMS2021_traj.pdf
+[99] https://openproceedings.org/2024/conf/edbt/paper-209.pdf
+[100] https://www.semanticscholar.org/paper/345d685ad458bbc0e2fb0b9149808082da270d6d
+[101] https://www.semanticscholar.org/paper/800ea671bde0a912e7368661c08d9fb1776c1f1f
+[102] https://www.semanticscholar.org/paper/f77f8da0cf6e68bee55e69f3dfff6216a3867be7
+[103] https://www.semanticscholar.org/paper/6d573c225717820f553274588a677823cf8f95d5
+[104] https://www.reddit.com/user/lgenaroarteaga/submitted/?feedViewType=cardView&sort=hot&t=month
+[105] https://www.reddit.com/r/Aarhus/comments/11kusnz/aarhus_universitet_eksamen/
+[106] https://www.reddit.com/r/Denmark/comments/znay6u/er_datalogi_det_v%C3%A6rd/
+[107] https://www.reddit.com/r/Denmark/comments/109y27l/chatbot_skriver_deres_skoleopgaver_l%C3%A6rerne_aner/
+[108] https://www.reddit.com/r/Denmark/comments/1ix2s34/ai_overtager_prestigefyldte_jobs_g%C3%B8r_det/?tl=en
+[109] https://www.reddit.com/r/ProgrammerHumor/comments/11u3w45/i_have_to_learn_c_im_getting_two_conflicting/
+[110] https://www.reddit.com/r/Denmark/comments/1d2ibrc/jeg_lod_chatgpt4o_tage_drs_kandidattest/
+[111] https://www.reddit.com/user/ElekDn/
+[112] https://iul.dk/2024/11/ais-historiske-udvikling/
+[113] https://www.sap.com/denmark/products/artificial-intelligence/what-is-machine-learning.html
+[114] https://www.vesselfinder.com/historical-ais-data
+[115] https://bue-net.dk/vejledninger/ais-fra-a-til-z/
+[116] https://www.reddit.com/r/MachineLearning/comments/om7kq3/n_stop_calling_everything_ai_machinelearning/
+[117] https://arosbusinessacademy.dk/hvad-er-maskinlaering/
+[118] https://www.aishub.net
+[119] https://www.soefartsstyrelsen.dk/sikkerhed-til-soes/sejladsinformation/download-data
+[120] https://videnskab.dk/teknologi/hvad-er-en-ais-black-box/
+[121] https://visuresolutions.com/da/blog/ai-og-machine-learning-til-risikostyring/
+[122] https://www.kystverket.no/en/navigation-and-monitoring/ais/access-to-ais-data/
+[123] https://help.skippo.io/da/support/solutions/articles/103000278760-ais-hvad-er-funktionen-ais-skippo-bade-og-hvordan-bruger-jeg-det-
+[124] https://www.aimentor.dk/sikkerhed/ais-rolle-i-fremtidens-cybersikkerhed/
+[125] https://www.aimentor.dk/forskning/ais-rolle-indenfor-forskning-i-kvantecomputere/
+[126] https://www.reddit.com/r/MachineLearning/comments/wiqjxv/d_the_current_and_future_state_of_aiml_is/
+[127] https://www.reddit.com/r/agi/comments/1aienv0/the_value_of_ais_that_exclusively_use_logic_and/
+[128] https://www.reddit.com/r/Physics/comments/54rssf/deep_learning_cnn_and_theoretical_physics/
+[129] https://www.reddit.com/r/MachineLearning/comments/om7kq3/n_stop_calling_everything_ai_machinelearning/
+[130] https://orbit.dtu.dk/files/271737108/sensors_22_02058_v2.pdf
+[131] https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4870230
+[132] https://dendanskemaritimefond.dk/wp-content/uploads/2019/06/PhDthesis_MalteMittendorf_S329.pdf
+[133] https://www.henrik-bondtofte.dk/maskinlaering/
+[134] https://orbit.dtu.dk/files/267486265/CAMS2021_traj.pdf
+[135] https://orbit.dtu.dk/files/383918312/IAME2023_Port_selection_by_container_ships_-_A_machine_learning_approach_with_AIS_data.pdf
+[136] https://www.dma.dk/safety-at-sea/navigational-information/ais-data
+[137] https://www.aimentor.dk/klima/reduktion-af-co2-udslip-med-ai-teknologier/
+[138] https://openaccess.nhh.no/nhh-xmlui/bitstream/handle/11250/3129444/masterthesis.pdf?sequence=1&isAllowed=y
+[139] https://open.library.ubc.ca/soa/cIRcle/collections/ubctheses/24/items/1.0401849
+[140] https://orbit.dtu.dk/files/293438099/PhD_thesis_Angelos_Ikonomakis.pdf
+[141] https://www.flyrank.com/da/blogs/ai-insights/what-is-the-role-of-ai-in-warehouse-automation
+[142] https://www.mdpi.com/2077-1312/10/9/1314
+[143] https://orbit.dtu.dk/en/publications/port-selection-by-container-ships-a-machine-learning-approach-wit-2
+[144] https://www.semanticscholar.org/paper/800ea671bde0a912e7368661c08d9fb1776c1f1f
+[145] https://www.semanticscholar.org/paper/8d4c94c3b87a556f53b6871ff74942805f886271
+[146] https://www.semanticscholar.org/paper/ce3ed34ff656883d89534a7c891e0184532be279
+[147] https://www.semanticscholar.org/paper/bf49c0382a881e0cfe10aafff1e42deaa28abd74
+[148] https://www.reddit.com/r/seancarroll/comments/18ymr2u/llm_dont_model_the_world/
+[149] https://www.reddit.com/r/AskComputerScience/comments/1hrjn4v/would_someone_please_explain_in_simple_terms_how/
+[150] https://www.reddit.com/r/maritime/comments/1i5mt7d/maritime_and_ai/
+[151] https://www.reddit.com/r/statistics/comments/8de54s/is_r_better_than_python_at_anything_i_started/
+[152] https://www.reddit.com/r/4Xgaming/comments/rci3rn/how_long_until_good_deeplearning_ai_ships_with_4x/
+[153] https://www.reddit.com/r/slatestarcodex/comments/1arcbco/anyone_else_have_a_hard_time_explaining_why/
+[154] https://www.reddit.com/r/eu4/comments/171jbnq/why_couldnt_the_ai_in_eu4_be_trained_like_chess_ai/
+[155] https://www.reddit.com/r/MachineLearning/comments/om7kq3/n_stop_calling_everything_ai_machinelearning/
+[156] https://www.reddit.com/r/singularity/comments/1d7579a/no_physics_no_problem_ai_weather_forecasting_is/
+[157] https://www.reddit.com/r/VictoriaBC/comments/1247jcj/im_working_on_an_app_that_will_show_the_locations/
+[158] https://www.reddit.com/r/scifiwriting/comments/p5i0zn/ai_algorithms_and_why_its_all_bullshit/
+[159] https://www.reddit.com/r/Advance_Wars/comments/rgznju/has_ai_and_machine_learning_ever_been_used_in/
+[160] https://www.reddit.com/r/programminghorror/comments/1it0dfu/behold_the_ai_engineers/
+[161] https://www.reddit.com/r/artificial/comments/12gzvz4/how_do_i_get_into_the_ai_world_as_complete/
+[162] https://orbit.dtu.dk/en/publications/probabilistic-maritime-trajectory-prediction-in-complex-scenarios
+[163] https://research.chalmers.se/publication/539676/file/539676_Fulltext.pdf
+[164] https://www.nature.com/articles/s41598-024-67552-2
+[165] https://www.maritimeoptima.com/insights/vessel-destination-forecasting-based-on-historical-ais-data
+[166] https://researchonline.ljmu.ac.uk/23943/1/Ship%20trajectory%20prediction%20based%20on%20machine%20learning%20and%20deep%20learning%20A%20systematic%20review%20and%20methods%20analysis.pdf
+[167] https://www.mdpi.com/1424-8220/20/6/1761
+[168] https://ieeexplore.ieee.org/document/9705864/
+[169] https://www.mdpi.com/2077-1312/12/5/769
+[170] https://arxiv.org/abs/2310.15586
+[171] https://ieeexplore.ieee.org/document/4632190/
+[172] https://openaccess.nhh.no/nhh-xmlui/bitstream/handle/11250/3129444/masterthesis.pdf?sequence=1&isAllowed=y
+[173] https://research.aalto.fi/files/114589891/1_s2.0_S0029801823012891_main.pdf
+[174] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9589647/
+[175] https://www.semanticscholar.org/paper/e7030c13e87cbe68607f3db3dfe9bb60ed711c63
+[176] https://www.semanticscholar.org/paper/7cd6f6521e8bb579730a50f45e42a0f9db09bbc5
+[177] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7968410/
+[178] https://www.reddit.com/r/learnmachinelearning/comments/16m3gx7/do_aibased_trading_bots_actually_work_for/
+[179] https://www.reddit.com/r/speedrun/comments/9u1r9o/using_ai_to_grind_out_routes/
+[180] https://www.reddit.com/r/chess/comments/skeqj5/do_you_think_neural_networks_or_traditional_chess/
+[181] https://www.reddit.com/r/VictoriaBC/comments/1247jcj/im_working_on_an_app_that_will_show_the_locations/
+[182] https://www.reddit.com/r/computerscience/comments/t8hdut/is_pathfinding_considered_artificial_intelligence/
+[183] https://www.reddit.com/r/MachineLearning/comments/1ao7b31/d_why_do_we_say_artificial_intelligence_instead/
+[184] https://www.reddit.com/r/seancarroll/comments/18ymr2u/llm_dont_model_the_world/
+[185] https://www.reddit.com/r/AskComputerScience/comments/1hrjn4v/would_someone_please_explain_in_simple_terms_how/
+[186] https://www.reddit.com/r/singularity/comments/1faahfx/opinion_with_the_current_way_artificial_neural/
+[187] https://www.reddit.com/r/masseffect/comments/1gde7vq/anyone_else_find_that_our_modern_day_ai_actually/
+[188] https://www.reddit.com/r/MachineLearning/comments/om7kq3/n_stop_calling_everything_ai_machinelearning/
+[189] https://www.reddit.com/r/explainlikeimfive/comments/1cjjyhp/eli5_what_does_it_mean_when_people_say_that_not/
+[190] https://www.reddit.com/r/eu4/comments/171jbnq/why_couldnt_the_ai_in_eu4_be_trained_like_chess_ai/
+[191] https://www.reddit.com/r/agi/comments/1aienv0/the_value_of_ais_that_exclusively_use_logic_and/
+[192] https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/port-calls-in-danish-sea-ports--experimental-statistics-
+[193] https://apps.dtic.mil/sti/pdfs/AD1046595.pdf
+[194] https://openaccess.nhh.no/nhh-xmlui/bitstream/handle/11250/3129444/masterthesis.pdf?sequence=1&isAllowed=y
+[195] https://www.maritimeoptima.com/insights/vessel-destination-forecasting-based-on-historical-ais-data
+[196] https://orbit.dtu.dk/files/267486265/CAMS2021_traj.pdf
+[197] https://www.ibm.com/think/topics/ai-vs-machine-learning-vs-deep-learning-vs-neural-networks
+[198] https://ieeexplore.ieee.org/document/4632190/
+[199] https://www.mdpi.com/2077-1312/10/6/804
+[200] https://ieeexplore.ieee.org/document/9054421/
+[201] https://journals.sagepub.com/doi/10.3233/SJI-230100?icid=int.sj-full-text.citing-articles.8
+[202] https://www.mdpi.com/2220-9964/13/3/85
+[203] https://www.vesselfinder.com/historical-ais-data
+[204] https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2022.1049343/full
+[205] https://www.semanticscholar.org/paper/8ff972cae2624ff7028f6fb88a886e1f2eb924f4
+[206] https://www.semanticscholar.org/paper/bfc0569ab6ab4511682f01bc4148b9ace4e96b3f
+[207] https://www.semanticscholar.org/paper/a7bd19718ac6ba39f25edfd2a9878a041507ba49
+[208] https://www.semanticscholar.org/paper/800ea671bde0a912e7368661c08d9fb1776c1f1f
+[209] https://www.reddit.com/r/statistics/comments/1agd6yi/software_statistical_software_trends/
+[210] https://www.reddit.com/r/AskComputerScience/comments/1hrjn4v/would_someone_please_explain_in_simple_terms_how/
+[211] https://www.reddit.com/r/OshiNoKo/comments/16eofjh/is_the_kind_of_play_shown_in_ch46_real/
+[212] https://www.reddit.com/r/math/comments/1bo4yj9/ai_large_mathematics_models_when_and_how_do_you/
+[213] https://www.reddit.com/r/OshiNoKo/comments/15o261a/how_much_will_oshi_no_ko_change_if_ai_never_died/
+[214] https://www.reddit.com/r/OpenAI/comments/183p4rw/what_bold_predictions_do_you_have_for_gpt5/
+[215] https://www.reddit.com/r/boating/comments/18onlwj/any_glacier_bay_worldcat_catamaran_owners_here/?tl=fr
+[216] https://www.reddit.com/r/learnmachinelearning/comments/16m3gx7/do_aibased_trading_bots_actually_work_for/
+[217] https://www.reddit.com/r/TrinidadandTobago/comments/1ahi0w2/thoughts_on_switching_the_courier_service_for_us/?tl=nl
+[218] https://www.reddit.com/r/singularity/comments/1hbgvpf/in_one_year_ais_went_from_random_guessing_to/
+[219] https://www.reddit.com/r/MachineLearning/comments/1bvi4au/d_llms_are_harming_ai_research/
+[220] https://www.reddit.com/r/learnmachinelearning/comments/1ibct8h/what_is_the_difference_between_ai_and_ml/
+[221] https://www.arimaowners.com/index.php?topic=57.0
+[222] https://www.mdpi.com/2077-1312/10/6/804
+[223] https://xbzrb.gdut.edu.cn/EN/10.12052/gdutxb.200076
+[224] https://ieeexplore.ieee.org/document/10082574/
+[225] https://www.marinetraffic.com/en/ais/details/ships/shipid:10428/mmsi:-8001505/imo:8001505/vessel:ARIMA
+[226] https://www.maritimeoptima.com/insights/vessel-destination-forecasting-based-on-historical-ais-data
+[227] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10731772/
+[228] https://pubmed.ncbi.nlm.nih.gov/36624314/
+[229] https://www.semanticscholar.org/paper/8eccbb381c2befe85929fe398cf4536d2a5ea42f
+[230] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10568665/
+[231] https://www.reddit.com/r/java/comments/xdku3j/anybody_here_using_java_for_machine_learning/
+[232] https://www.reddit.com/r/singularity/comments/18hl2l9/why_nexttoken_prediction_is_enough_for_agi_ilya/
+[233] https://www.reddit.com/r/traveller/comments/1apckup/venting_about_crew_design/
+[234] https://www.reddit.com/r/OpenAI/comments/1g1hypo/ilya_sutskever_says_predicting_the_next_word/
+[235] https://www.reddit.com/r/AskComputerScience/comments/1hrjn4v/would_someone_please_explain_in_simple_terms_how/
+[236] https://www.reddit.com/r/MINI/comments/y0oaym/1010_in_transit_from_southampton_hawaiian_highway/
+[237] https://www.reddit.com/r/learnmachinelearning/comments/16m3gx7/do_aibased_trading_bots_actually_work_for/
+[238] https://www.reddit.com/r/math/comments/1bo4yj9/ai_large_mathematics_models_when_and_how_do_you/
+[239] https://www.reddit.com/r/sailing/comments/1b0cnh3/tell_me_whats_wrong_with_my_cruising_plan/
+[240] https://www.reddit.com/r/masseffect/comments/1gde7vq/anyone_else_find_that_our_modern_day_ai_actually/
+[241] https://www.reddit.com/r/OpenAI/comments/183p4rw/what_bold_predictions_do_you_have_for_gpt5/
+[242] https://www.reddit.com/r/spacex/comments/cp0rnb/just_read_the_instructions_voyage_discussion_and/
+[243] https://www.reddit.com/r/Futurology/comments/1bsxjh7/what_if_ai_could_learn_like_the_matrix_straight/
+[244] https://www.reddit.com/r/singularity/comments/1hbgvpf/in_one_year_ais_went_from_random_guessing_to/
+[245] https://pmc.ncbi.nlm.nih.gov/articles/PMC8587125/
+[246] https://www.mdpi.com/2076-3417/11/5/2429
+[247] https://portal.findresearcher.sdu.dk/files/184593016/A_practical_AIS_based_route_library_for_voyage_planning_at_the_pre_fixture_stage_Cai_et_al.pdf
+[248] https://orbit.dtu.dk/files/371738124/1-s2.0-S1361920924001718-main.pdf
+[249] https://www.mdpi.com/2077-1312/10/6/804
+[250] https://www.ai4europe.eu/taxonomy/term/929
+[251] https://www.mdpi.com/2077-1312/12/10/1739
+[252] https://ieeexplore.ieee.org/document/10082574/
+[253] https://sinay.ai/en/vessel-route-forecast-predicting-eta-and-increasing-fuel-efficiency/
+[254] https://ieeexplore.ieee.org/document/9705864/
+[255] https://www.maritimeoptima.com/insights/vessel-destination-forecasting-based-on-historical-ais-data
+[256] https://www.mdpi.com/2077-1312/10/12/1956
