@@ -22,7 +22,15 @@ def preprocess(csv_file_path):
                                                                     or x == "Unknown value" or x == "Moored" or x == "Restricted maneuverability"
                                                                     or x == "Under way sailing" or x == "Constrained by her draught" else "Other")
     
+    data = data[ data["Latitude"].notna()]
+    data = data[ data["Longitude"].notna()]
+    data = data[ data["ROT"].notna()]
+    data = data[ data["SOG"].notna()]
+    data = data[ data["COG"].notna()]
     data = data[ data["Heading"].notna()]
+    data = data[ data["Width"].notna()]
+    data = data[ data["Length"].notna()]
+    data = data[ data["Draught"].notna()]
     #---------------------------------------------------------------------------------------------------------------#
     #----------encoding for the values that only have a few options (mby use on cargo type or destination)----------#
     #---------------------------------------------------------------------------------------------------------------#
