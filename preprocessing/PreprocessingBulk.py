@@ -7,88 +7,101 @@ from sklearn.preprocessing import OrdinalEncoder
 from sklearn.impute import SimpleImputer
 
 def main():
-    #preprocess("preprocessing/AIS/aisdk-2025-03-10/aisdk-2025-03-10.csv")
-    preprocess("preprocessing/test.csv")
+    preprocess("preprocessing/AIS/aisdk-2025-03-10/aisdk-2025-03-10.csv")
+    #preprocess("preprocessing/test.csv")
 
 def preprocess(csv_file_path):
-    #----------------------------------#
-    #-------normal preprocessing-------#
-    #----------------------------------#
-    
     print("loading csv")
     data = pd.read_csv(csv_file_path)
     
-    #ordinal encoding for the values that only have a few options (mby use on cargo type or destination)
-    type_of_mobile_enc = OrdinalEncoder()
-    ship_type_enc = OrdinalEncoder()
-    type_of_position_fixing_device_enc = OrdinalEncoder()
-    data_source_type_enc = OrdinalEncoder()
+    #----------------------------------------------------------#
+    #----------drop/change values that are not needed----------#
+    #----------------------------------------------------------#
+    data = data[ data["Type of mobile"].isin(["Class A"]) ]
+    data["Navigational status"] = data["Navigational status"].apply(lambda x: x if x == "Under way using engine" or x == "Engaged in fishing" 
+                                                                    or x == "Unknown value" or x == "Moored" or x == "Restricted maneuverability"
+                                                                    or x == "Under way sailing" or x == "Constrained by her draught" else "Other")
     
-    print("Encoding: Type of mobile")
-    data["Type of mobile"] = type_of_mobile_enc.fit_transform(data[["Type of mobile"]])
+    data = data[ data["Heading"].notna()]
+    #---------------------------------------------------------------------------------------------------------------#
+    #----------encoding for the values that only have a few options (mby use on cargo type or destination)----------#
+    #---------------------------------------------------------------------------------------------------------------#
+    #type_of_mobile_enc = OrdinalEncoder()
+    #ship_type_enc = OrdinalEncoder()
+    #type_of_position_fixing_device_enc = OrdinalEncoder()
+    #data_source_type_enc = OrdinalEncoder()
+    navigational_status_enc = OrdinalEncoder()
     
-    print("Encoding: Ship type")
-    data["Ship type"] = ship_type_enc.fit_transform(data[["Ship type"]])
+    #print("Encoding: Type of mobile")
+    #data["Type of mobile"] = type_of_mobile_enc.fit_transform(data[["Type of mobile"]])
     
-    print("Encoding: Type of position fixing device")
-    data["Type of position fixing device"] = type_of_position_fixing_device_enc.fit_transform(data[["Type of position fixing device"]])
+    #print("Encoding: Ship type")
+    #data["Ship type"] = ship_type_enc.fit_transform(data[["Ship type"]])
     
-    print("Encoding: source type")
-    data["Data source type"] = data_source_type_enc.fit_transform(data[["Data source type"]])
+    print("Encoding: Navigational status")
+    data["Navigational status"] = navigational_status_enc.fit_transform(data[["Navigational status"]])
     
-    #replace nan values with a constant value. in this case 'NULL'
+    #print("Encoding: Type of position fixing device")
+    #data["Type of position fixing device"] = type_of_position_fixing_device_enc.fit_transform(data[["Type of position fixing device"]])
+    
+    #print("Encoding: source type")
+    #data["Data source type"] = data_source_type_enc.fit_transform(data[["Data source type"]])
+    
+    #---------------------------------------------------------------------------------#
+    #----------replace nan values with a constant value. in this case 'NULL'----------#
+    #---------------------------------------------------------------------------------#
     nan_fill_imputer = SimpleImputer(strategy="constant", missing_values = np.nan, fill_value = "'NULL'") 
     
-    print("converting number formats step 1 / 17")
-    handle_number_column(nan_fill_imputer, data, "Type of mobile")
-    print("converting number formats step 2 / 17")
+    #print("converting number formats step 1 / 11")
+    #handle_number_column(nan_fill_imputer, data, "Type of mobile")
+    print("converting number formats step 1 / 10")
     handle_number_column(nan_fill_imputer, data, "Latitude")
-    print("converting number formats step 3 / 17")
+    print("converting number formats step 2 / 10")
     handle_number_column(nan_fill_imputer, data, "Longitude")
-    print("converting number formats step 4 / 17")
+    print("converting number formats step 3 / 10")
     handle_number_column(nan_fill_imputer, data, "ROT")
-    print("converting number formats step 5 / 17")
+    print("converting number formats step 4 / 10")
     handle_number_column(nan_fill_imputer, data, "SOG")
-    print("converting number formats step 6 / 17")
+    print("converting number formats step 5 / 10")
     handle_number_column(nan_fill_imputer, data, "COG")
-    print("converting number formats step 7 / 17")
+    print("converting number formats step 6 / 10")
     handle_number_column(nan_fill_imputer, data, "Heading")
-    print("converting number formats step 8 / 17")
-    handle_number_column(nan_fill_imputer, data, "Ship type")
-    print("converting number formats step 9 / 17")
+    #print("converting number formats step 8 / 17")
+    #handle_number_column(nan_fill_imputer, data, "Ship type")
+    print("converting number formats step 7 / 10")
     handle_number_column(nan_fill_imputer, data, "Width")
-    print("converting number formats step 10 / 17")
+    print("converting number formats step 8 / 10")
     handle_number_column(nan_fill_imputer, data, "Length")
-    print("converting number formats step 11 / 17")
-    handle_number_column(nan_fill_imputer, data, "Type of position fixing device")
-    print("converting number formats step 12 / 17")
+    #print("converting number formats step 11 / 17")
+    #handle_number_column(nan_fill_imputer, data, "Type of position fixing device")
+    print("converting number formats step 9 / 10")
     handle_number_column(nan_fill_imputer, data, "Draught")
-    print("converting number formats step 13 / 17")
-    handle_number_column(nan_fill_imputer, data, "Data source type")
-    print("converting number formats step 14 / 17")
-    handle_number_column(nan_fill_imputer, data, "A")
-    print("converting number formats step 15 / 17")
-    handle_number_column(nan_fill_imputer, data, "B")
-    print("converting number formats step 16 / 17")
-    handle_number_column(nan_fill_imputer, data, "C")
-    print("converting number formats step 17 / 17")
-    handle_number_column(nan_fill_imputer, data, "D")
+    #print("converting number formats step 13 / 17")
+    #handle_number_column(nan_fill_imputer, data, "Data source type")
+    #print("converting number formats step 14 / 17")
+    #handle_number_column(nan_fill_imputer, data, "A")
+    #print("converting number formats step 15 / 17")
+    #handle_number_column(nan_fill_imputer, data, "B")
+    #print("converting number formats step 16 / 17")
+    #handle_number_column(nan_fill_imputer, data, "C")
+    #print("converting number formats step 17 / 17")
+    #handle_number_column(nan_fill_imputer, data, "D")
+    print("converting number formats step 10 / 10")
+    handle_number_column(nan_fill_imputer, data, "Navigational status")
     
-    print("converting text formats step 1 / 5")
-    handle_text_column(data, "Navigational status")
-    print("converting text formats step 2 / 5")
-    handle_text_column(data, "IMO")
-    print("converting text formats step 3 / 5")
-    handle_text_column(data, "Callsign")
-    print("converting text formats step 4 / 5")
+    #print("converting text formats step 2 / 5")
+    #handle_text_column(data, "IMO")
+    #print("converting text formats step 3 / 5")
+    #handle_text_column(data, "Callsign")
+    print("converting text formats step 1 / 2")
     handle_text_column(data, "Cargo type")
-    print("converting text formats step 5 / 5")
+    print("converting text formats step 2/ 2")
     handle_text_column(data, "Destination")
     
-    print("converting dateTime formats step 1 / 2")
+    print("converting dateTime formats step 1 / 1")
     handle_datetime(data, "Timestamp")
-    print("converting dateTime formats step 2 / 2")
-    handle_datetime(data, "ETA")
+    #print("converting dateTime formats step 2 / 2")
+    #handle_datetime(data, "ETA")
 
 
     #-----------------------------------------------------------------------------------------#
@@ -118,30 +131,18 @@ def preprocess(csv_file_path):
         sql.execute_query(database, 
             f"""CREATE TABLE IF NOT EXISTS ship_{mmsi} (
                 Timestamp DATETIME NOT NULL,
-                Type_of_mobile SMALLINT,
                 Latitude FLOAT,
                 Longitude FLOAT,
-                Navigational_status TEXT,
+                Navigational_status SMALLINT,
                 ROT FLOAT,
                 SOG FLOAT,
                 COG FLOAT,
                 Heading FLOAT,
-                IMO TEXT,
-                Callsign TEXT,
-                Name TEXT,
-                Ship_type SMALLINT,
                 Cargo_type TEXT,
                 Width FLOAT,
                 Length FLOAT,
-                Type_of_position_fixing_device SMALLINT,
                 Draught TEXT,
                 Destination TEXT,
-                ETA DATETIME,
-                Data_source_type SMALLINT,
-                A FLOAT,
-                B FLOAT,
-                C FLOAT,
-                D FLOAT,
                 UNIQUE(Timestamp));""")
     
     #number_of_rows = data.shape[0]
@@ -184,10 +185,9 @@ def preprocess(csv_file_path):
 
     # Define the columns you need to extract
     columns = [
-        "Timestamp", "Type of mobile", "Latitude", "Longitude", "Navigational status",
-        "ROT", "SOG", "COG", "Heading", "IMO", "Callsign", "Name", "Ship type",
-        "Cargo type", "Width", "Length", "Type of position fixing device", "Draught",
-        "Destination", "ETA", "Data source type", "A", "B", "C", "D"
+        "Timestamp", "Latitude", "Longitude", "Navigational status",
+        "ROT", "SOG", "COG", "Heading",
+        "Cargo type", "Width", "Length", "Draught", "Destination"
     ]
     print("Collecting data for tables")
     rows_to_insert = valid_data.groupby("MMSI")[columns].apply(lambda x: list(x.itertuples(index=False, name=None))).to_dict()
@@ -213,11 +213,10 @@ def preprocess(csv_file_path):
         # Build the insert query with the dynamic table name
         insert_query = f"""
         INSERT OR IGNORE INTO {table_name} (
-            Timestamp, Type_of_mobile, Latitude, Longitude, Navigational_status,
-            ROT, SOG, COG, Heading, IMO, Callsign, Name, Ship_type, Cargo_type, Width,
-            Length, Type_of_position_fixing_device, Draught, Destination, ETA, Data_source_type,
-            A, B, C, D
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            Timestamp, Latitude, Longitude, Navigational_status,
+            ROT, SOG, COG, Heading, Cargo_type, Width,
+            Length, Draught, Destination
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
         # Insert the rows into the dynamic table
         sql.execute_query(database, insert_query, ship_rows)
@@ -225,10 +224,13 @@ def preprocess(csv_file_path):
     
     #To print the encoder categories at the end
     print("finished creating database")
-    print(f"Type of mobile categories: {type_of_mobile_enc.categories_}")
-    print(f"Ship type categories: {ship_type_enc.categories_}")
-    print(f"Type of position fixing device categories: {type_of_position_fixing_device_enc.categories_}")
-    print(f"Data source type categories: {data_source_type_enc.categories_}")
+    #print(f"Type of mobile categories: {type_of_mobile_enc.categories_}")
+    #print_precentages(data, "Type of mobile", type_of_mobile_enc)
+    #print(f"Ship type categories: {ship_type_enc.categories_}")
+    #print(f"Navigational status categories: {navigational_status_enc.categories_}")
+    print_precentages(data, "Navigational status", navigational_status_enc)
+    #print(f"Type of position fixing device categories: {type_of_position_fixing_device_enc.categories_}")
+    #print(f"Data source type categories: {data_source_type_enc.categories_}")
     
 #converts the timestamp format from DD/MM/YYYY HH:MM:SS to YYYY-MM-DD HH:MM:SS, so that sql can understand it
 def convert_to_datetime(text: str) -> str:
@@ -263,6 +265,14 @@ def handle_text_column(data, column_name):
 def handle_datetime(data, column_name):
     data[column_name] = data[column_name].apply(convert_to_datetime)
     
+def print_precentages(data : pd.DataFrame, column_name : str, encoder : OrdinalEncoder):
+    print(f"---- categories for {column_name} ----")
+    percentages = data[column_name].value_counts(normalize=True) * 100
+    categories = list(encoder.categories_[0])
+    percentage_dict = {categories[int(float(idx))]: pct for idx, pct in percentages.items()}
+    
+    for category, pct in percentage_dict.items():
+        print(f"{category}: {pct:.2f}%")
     
 if __name__ == "__main__":
     main()
