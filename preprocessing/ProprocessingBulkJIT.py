@@ -4,14 +4,20 @@ import numpy as np
 from numba import jit, prange, float64, int64
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.impute import SimpleImputer
+import time
 
 def main():
-    preprocess("preprocessing/AIS/aisdk-2025-03-10/aisdk-2025-03-10.csv")
-    # preprocess("preprocessing/test.csv")
+    start_time = time.time()
+    preprocess("C:\\Users\\jonas\\Desktop\\Design og anvendelse af kunstig inteligens\\2. Semester\\Projekt - Gatehouse\\AIS\\aisdk-2025-03-10.csv")
+    end_time = time.time()
+    print(f"Total execution time: {end_time - start_time:.2f} seconds")
 
 def preprocess(csv_file_path):
     print("loading csv")
     data = pd.read_csv(csv_file_path)
+    
+    print("Available columns:")
+    print(data.columns.tolist())
     
     # ----------------------------------------------------------#
     # ----------drop/change values that are not needed----------#
@@ -56,7 +62,8 @@ def preprocess(csv_file_path):
         handle_text_column(data, column)
     
     print("Converting datetime formats")
-    handle_datetime(data, "Timestamp")
+    # Korrigeret kolonnenavn fra "Timestamp" til "# Timestamp"
+    handle_datetime(data, "# Timestamp")
     
     # -----------------------------------------------------------------------------------------#
     # -------converting to sql database and removing duplicates in the following section-------#
@@ -84,9 +91,9 @@ def preprocess(csv_file_path):
     
     valid_data = data[pd.notna(data["MMSI"]) & (data["MMSI"] != "")]  # Filter valid MMSI rows
     
-    # Define the columns you need to extract
+    # Define the columns you need to extract - korrigeret "Timestamp" til "# Timestamp"
     columns = [
-        "Timestamp", "Latitude", "Longitude", "Navigational status",
+        "# Timestamp", "Latitude", "Longitude", "Navigational status",
         "ROT", "SOG", "COG", "Heading",
         "Cargo type", "Width", "Length", "Draught", "Destination"
     ]
@@ -194,30 +201,39 @@ def handle_text_jit(text):
 
 # These functions apply the JIT optimized functions to dataframe columns
 def handle_number_column(imputer, data, column_name):
-    # Convert column to numpy array for faster processing
-    column_array = data[column_name].astype(str).values
-    
-    # Apply JIT function using numpy's vectorize for better performance
-    vectorized_handle_number = np.vectorize(handle_number_jit)
-    data[column_name] = vectorized_handle_number(column_array)
+    try:
+        # Convert column to numpy array for faster processing
+        column_array = data[column_name].astype(str).values
+        
+        # Apply JIT function using numpy's vectorize for better performance
+        vectorized_handle_number = np.vectorize(handle_number_jit)
+        data[column_name] = vectorized_handle_number(column_array)
+    except Exception as e:
+        print(f"Error processing column {column_name}: {e}")
 
 
 def handle_text_column(data, column_name):
-    # Convert column to numpy array for faster processing
-    column_array = data[column_name].astype(str).values
-    
-    # Apply JIT function using numpy's vectorize
-    vectorized_handle_text = np.vectorize(handle_text_jit)
-    data[column_name] = vectorized_handle_text(column_array)
+    try:
+        # Convert column to numpy array for faster processing
+        column_array = data[column_name].astype(str).values
+        
+        # Apply JIT function using numpy's vectorize
+        vectorized_handle_text = np.vectorize(handle_text_jit)
+        data[column_name] = vectorized_handle_text(column_array)
+    except Exception as e:
+        print(f"Error processing column {column_name}: {e}")
 
 
 def handle_datetime(data, column_name):
-    # Convert column to numpy array for faster processing
-    column_array = data[column_name].astype(str).values
-    
-    # Apply JIT function using numpy's vectorize
-    vectorized_convert_datetime = np.vectorize(convert_to_datetime_jit)
-    data[column_name] = vectorized_convert_datetime(column_array)
+    try:
+        # Convert column to numpy array for faster processing
+        column_array = data[column_name].astype(str).values
+        
+        # Apply JIT function using numpy's vectorize
+        vectorized_convert_datetime = np.vectorize(convert_to_datetime_jit)
+        data[column_name] = vectorized_convert_datetime(column_array)
+    except Exception as e:
+        print(f"Error processing datetime column {column_name}: {e}")
 
 
 def print_precentages(data: pd.DataFrame, column_name: str, encoder: OrdinalEncoder):
