@@ -47,7 +47,16 @@ def preprocess(csv_file_path):
     #data["Ship type"] = ship_type_enc.fit_transform(data[["Ship type"]])
     
     print("Encoding: Navigational status")
-    data["Navigational status"] = navigational_status_enc.fit_transform(data[["Navigational status"]])
+    data["Navigational status"] = data["Navigational status"].apply(lambda x: 
+        0 if "Under way using engine" else 
+        1 if "Engaged in fishing" else
+        2 if "Unknown value" else
+        3 if "Moored" else
+        4 if "Restricted maneuverability" else
+        5 if "Under way sailing" else
+        6 if "Constrained by her draught" else 
+        7 if "Reserved for future amendment [HSC]" else
+        8 if "At anchor" else 9)
     
     #print("Encoding: Type of position fixing device")
     #data["Type of position fixing device"] = type_of_position_fixing_device_enc.fit_transform(data[["Type of position fixing device"]])
