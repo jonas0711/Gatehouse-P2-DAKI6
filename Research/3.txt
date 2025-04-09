@@ -1,0 +1,131 @@
+# Anvendelse af traditionelle AI/ML-modeller på AIS-data: En analyse af ikke-neurale tilgange i maritim teknologi
+
+Maritime datasæt fra Automatic Identification System (AIS) har traditionelt været analyseret med klassiske maskinlæringsteknikker, især i områder hvor fortolkelighed, beregningskompleksitet eller datakvalitet gør dyb læring uegnet. Gennem en systematisk gennemgang af eksisterende løsninger identificeres fire hovedkategorier: regelbaserede systemer, lineære regressioner, statistiske hypotesetests og ensemblemetoder. Disse tilgange demonstrerer, hvordan komplekse maritime problemstillinger kan løses uden dyb læringsarkitekturer.
+
+## Regelbaserede beslutningssystemer til kollisionsforebyggelse
+
+Autonome skibssystemer kræver høj grad af determinisme og sikkerhed, hvilket har ført til udviklingen af eksplicitte regelstrukturer baseret på AIS-data.
+
+### Hierarkisk regelengine for skibsdomæneadfærd
+
+Et japansk forskningsprojekt kombinerer skibsdomænekoncepter med håndkodede navigationsregler for autonom kollisionsundgåelse. Systemet definerer tre sikkerhedszoner baseret på AIS-attributter (længde, bredde, hastighed):
+
+1. **Kritisk zone** (1,5 sømil): Aktiverer nødstopmanøvre
+2. **Advarselszone** (2 sømil): Initierer kursjustering
+3. **Overvågningszone** (3 sømil): Monitorerer relativ bevægelse
+
+Reglerne implementerer COLREGs-konventionerne gennem en beslutningstræstruktur, der evaluerer mødescenarier (modsatte kurser, krydsende baner) baseret på AIS-heading og position[3]. En evaluering i Tokyos bugt viste 92% nøjagtighed i manøvrebeslutninger under multiskupsinteraktioner.
+
+### Statisk vs. dynamisk skibsdomænemodellering
+
+Forskere fra JSTAGE demonstrerer, hvordan statiske sikkerhedsgrænser kan optimeres ved hjælp af skibstypespecifikke parametre fra AIS-metadata. Containerskibe tildeles elliptiske domæner (hovedakse=5×LBP), mens tankskibe bruger cirkulære zoner (radius=3×bredde). Implementeringen inkluderer en feedback-loop der justerer zoner baseret på realtids AIS-hastighedsdata[3].
+
+## Lineære regressionsteknikker til datarensning og reparation
+
+Rå AIS-data er ofte støjfyldte og ufuldstændige, hvilket kræver robuste rensningsmetoder uden komplekse neuralnetværk.
+
+### Multivariat lineær regression for trajektorirekonstruktion
+
+Den kinesiske studie fra Yangtze-floden anvender en tredobbelt regressionsmodel til at håndtere manglende datapunkter:
+
+1. **Tidsbaseret interpolation**: $$ P(t) = \beta_0 + \beta_1t + \epsilon $$
+2. **Rumlig sekventiel regression**: $$ \text{SOG}_k = \beta_2\text{COG}_{k-1} + \beta_3\text{LAT}_k $$
+3. **Multiskibs korrelationsmodel**: $$ \Delta\text{POS}_i = \sum_{j\in N(i)}\beta_{4j}\Delta\text{POS}_j $$
+
+Modellen reparerer 89% af manglende pakker med en gennemsnitlig positionfejl på 42 meter ved brug af skibstetriske korrelationsanalyser[1].
+
+### Streaming PCA til anomalidetektion
+
+En svensk implementering bruger Principal Component Analysis (PCA) i realtid til at identificere afvigende hastigheds-/kurskombinationer. Ved at projicere AIS-attributter (SOG, COG, ROT) på to hovedkomponenter opdages outliers gennem Mahalanobis-afstandsberegninger:
+
+$$ D = \sqrt{(x - \mu)\Sigma^{-1}(x - \mu)^T} $$
+
+En threshold på $$ \chi^2_{0,99} $$ giver 84% sand positiv rate for motorfejldetektion i Østersøen[5].
+
+## Statistiske hypotesetests til adfærdsanalyse
+
+Maritim overvågning kræver letfortolkelige metoder til at skelne mellem faktiske anomalier og målefejl.
+
+### T-score baseret adfærdsvurdering
+
+Linköping Universitets metode anvender en glidende vindueteknik til at beregne afvigelser mellem observerede og forventede AIS-parametre:
+
+$$ T_k = \frac{1}{\sigma^2}\sum_{i=1}^n(y_i - \hat{y}_i)^2 $$
+
+Hvor $$ \hat{y}_i $$ er prædiktioner fra en adaptiv Kalman-filtermodel. En eksponentiel glemselsfaktor ($$ \lambda=0,95 $$) giver mulighed for at detektere langsigtede anomalier uden deep learning-komponenter[5].
+
+### Chi-kvadreret test for ruteoverholdelse
+
+Et europæisk forsøg implementerer en $$ \chi^2 $$-test til at vurdere skibes overholdelse af erklærede ruter:
+
+$$ \chi^2 = \sum_{i=1}^k\frac{(O_i - E_i)^2}{E_i} $$
+
+Hvor $$ O_i $$ er observeret positionstab og $$ E_i $$ forventet baseret på havneplaner. En p-værdi <0,01 udløser inspektionsalarm med 78% nøjagtighed[5].
+
+## Ensemblemetoder til prædiktiv vedligeholdelse
+
+Kombinationen af flere simple modeller kan overgå komplekse arkitekturer i visse maritime scenarier.
+
+### Random Forest for motorfejlsprognose
+
+En dansk løsning bruger 100 beslutningstræer til at forudsige udstyrssvigt baseret på AIS driftsdata:
+
+1. Motortryksvarians
+2. Brændstofforbrugstrends
+3. Rotationshastighedsfluktuationer
+
+Modellen opnår 89% AUC-score ved at kombinere tidsrækkeegenskaber med skibsspecifikke metadata[1].
+
+### Gradient Boosting til ruteoptimering
+
+Freightflows' platform anvender XGBoost til at maksimere brændstofeffektivitet gennem funktioner som:
+
+- Historisk brændstofforbrug vs. lastvægt
+- Havstrømsafvigelser
+- Vejrmodelligningsscore
+
+En SHAP-analyse viser, at vindmodstandsreduktion bidrager 43% til prædiktionsnøjagtigheden[1].
+
+## Konklusion
+
+Traditionelle AI/ML-metoder bevarer en kritisk rolle i maritime anvendelser, især når krav til fortolkelighed, lav latenstid eller begrænsede regnekræfter gør dyb læring uegnet. De analyserede tilgange demonstrerer, at kombinationer af statistiske metoder, lineære modeller og regelbaserede systemer kan levere løsninger med industriel anvendelighed. Fremtidig forskning bør fokusere på hybridmodeller der kombinerer styrkerne fra begge paradigmer.
+
+Citations:
+[1] https://onlinelibrary.wiley.com/doi/10.1155/2023/8345603
+[2] https://www.forbes.com/sites/bernardmarr/2023/07/24/the-difference-between-generative-ai-and-traditional-ai-an-easy-explanation-for-anyone/
+[3] https://www.jstage.jst.go.jp/article/jinnavi/211/0/211_37/_pdf
+[4] https://arxiv.org/abs/2110.07641
+[5] https://liu.diva-portal.org/smash/get/diva2:1640991/FULLTEXT01.pdf
+[6] https://en.wikipedia.org/wiki/Logistic_regression
+[7] https://towardsdatascience.com/ensemble-learning-with-support-vector-machines-and-decision-trees-88f8a1b5f84b/
+[8] https://www.zignuts.com/blog/ai-vs-traditional-algorithms
+[9] https://www.mdpi.com/2077-1312/9/6/609
+[10] https://www.reddit.com/r/learnmachinelearning/comments/iqj9qy/ai_that_isnt_ml_ml_that_isnt_deep_learning/
+[11] https://orbit.dtu.dk/files/383918312/IAME2023_Port_selection_by_container_ships_-_A_machine_learning_approach_with_AIS_data.pdf
+[12] https://shelf.io/blog/choose-your-ai-weapon-deep-learning-or-traditional-machine-learning/
+[13] https://fruct.org/publications/volume-34/fruct34/files/Gor.pdf
+[14] https://www.ibm.com/think/topics/logistic-regression
+[15] https://www.linkedin.com/pulse/data-ai-rule-based-ml-suresh-krishnan
+[16] https://github.com/LeoPits/Vessels-anomaly-detection-with-AIS-data
+[17] https://www.reddit.com/r/MachineLearning/comments/rq6uih/d_other_ai_methodsalgorithms_except_deep_neural/
+[18] https://www.inf.uni-hamburg.de/en/inst/ab/cv/media/guelsoylu-vessel-identification-macvi-wacv-2024.pdf
+[19] https://pmf-research.eu/en/deep-learning-machine-learning-traditional-ai/
+[20] https://arxiv.org/html/2407.04402v1
+[21] https://arxiv.org/abs/2404.04267
+[22] https://aisel.aisnet.org/capsi2022/36/
+[23] https://openaccess.nhh.no/nhh-xmlui/bitstream/handle/11250/3129444/masterthesis.pdf?sequence=1&isAllowed=y
+[24] https://www.quixl.ai/blog/deep-learning-vs-traditional-machine-learning-choosing-the-right-approach-for-edtech-applications/
+[25] https://maritimeresearchcenter.com/wp-content/uploads/2022/03/Atharv-AIS-Data-Analysis-and-Retrieval-Atharv-Kurdukar.pdf
+[26] https://cloud.google.com/discover/deep-learning-vs-machine-learning
+[27] https://www.cloudeo.group/blog/cloudeo-blog-space-1/anomaly-detection-in-ais-data-44
+[28] https://www.linkedin.com/pulse/understanding-support-vector-machines-svm-decision-trees-nasr-ullah-b1xqf
+[29] https://www.ibm.com/think/topics/ai-vs-machine-learning-vs-deep-learning-vs-neural-networks
+[30] https://www.grammarly.com/blog/ai/what-is-logistic-regression/
+[31] https://ieeexplore.ieee.org/document/687237/
+[32] https://www.techtarget.com/searchenterpriseai/feature/How-to-choose-between-a-rules-based-vs-machine-learning-system
+[33] https://onlinelibrary.wiley.com/doi/10.1155/2022/5954483
+[34] https://encord.com/blog/what-is-logistic-regression/
+[35] https://www.researchgate.net/figure/The-construction-of-a-decision-tree-and-SVMs-for-the-iris-data-shows-the-boundaries-and_fig1_346120333
+[36] https://en.wikipedia.org/wiki/Rule-based_machine_learning
+[37] https://github.com/sansastra/uncertainty_edl_graph
+[38] https://levity.ai/blog/difference-machine-learning-deep-learning

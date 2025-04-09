@@ -1,0 +1,603 @@
+# Unikke destinationer fundet på tværs af 11 AIS-filer
+# Samlet antal unikke destinationer: 588
+# Top 10 mest frekvente destinationer:
+# Unknown: 96947184 forekomster
+# Skagen: 7170248 forekomster
+# Esbjerg: 4453560 forekomster
+# Gothenburg: 3622393 forekomster
+# Rodby: 2141679 forekomster
+# Gdansk: 1836772 forekomster
+# Klaipeda: 1741844 forekomster
+# Rotterdam: 1671557 forekomster
+# Rostock: 1625224 forekomster
+# Saint Petersburg: 1621401 forekomster
+#--------------------------------------------------
+
+Aabenraa
+Aagotnes
+Aalbaek
+Aalborg
+Aalesund
+Aarhus
+Aarosund
+Aasgard Field
+Aberdeen
+Abu Qir
+Agnesberg
+Ahus
+Alang
+Algeciras
+Alvheim Field
+Amrum
+Amrumbank West OWF
+Amsterdam
+Anholt
+Anholt Wind Farm
+Antwerp
+Arendal
+Arnis
+Arzew
+Aschau Range
+Assens
+Augusta
+Auk Field
+Aukra
+Avedoere
+Aviles
+Ayr
+BALTIC POWER SITE
+BE ANTWERP
+BE ZEL > SE KAN
+BRB
+BRB HARBOUR TOW.JOBS
+BRIAR
+Backviken
+Bahia Blanca
+Balder Field
+Ballebro
+Ballen
+Baltic Eagle OWF
+Baltic Power OWF
+Baltyk Wind Farm
+Bandholm
+Bard OWF
+Barhoeft
+Barth
+Bekkeri
+Belfast
+Bergen
+Bermeo
+Bilbao
+Bisserup
+Blyth
+Bodo
+Bojden
+Boneset
+Bonnerup Strand
+Borkum Riffgrund OWF
+Borstahusen
+Borwin 5 OWF
+Boston
+Brake
+Brantevik
+Brazil
+Bremen
+Bremerhaven
+Brevik
+Brofjorden
+Brunsbuettel
+Buesum
+Butendiek OWF
+Butinge
+Butzfleth
+Buzzard Field
+Casablanca
+Catcher Field
+China
+Copenhagen
+Cristobal
+Cuxhaven
+Cygnus Field
+DE CKL
+DE KIEL
+DE RSK
+DETRG
+DIVING CPA 0,2 NM
+DIVING OPS-CPA 200M
+DK FDV
+DK LIN
+DK NVD
+DKAARH-ODDEN
+DKASV
+DKFDK
+DKFRE
+DKFUH
+DKGFH
+DKGTS
+DKHLS
+DKHNB > PILOT AREA
+DKHUN
+DKHVS
+DKLHH
+DKLLH
+DKMNK
+DKMOM
+DKMRG
+DKNDB
+DKOG
+DKORE
+DKSAW
+DKSIT
+DKSIT PEC433
+DKSKW
+DKSSA
+DKVRE
+DREDGING OPERATION
+Dagebuell
+Dakar
+DanTysk OWF
+Darlowo
+Delfzijl
+Den Helder
+Dieppe
+Dirdal
+Dogger Bank OWF
+Donso
+Dordrecht
+Dorum
+Drammen
+Dunkirk
+Dusavik
+ELBE RANGE
+ESALC
+ESBJ FANO
+ESPERGAERE
+East Anglia OWF
+Ebeltoft
+Eckernfoerde
+Eemshaven
+Egersund
+Ekofisk Field
+Elbe Pilot
+Eldfisk Field
+Elgin Field
+Emden
+Esbjerg
+Eydehavn
+FEHMARN PROJECT
+FIHMN
+FREDERIKSHAVEN
+FREDRIKSHAVEN
+Faaborg
+Fakse Ladeplads
+Falkenberg
+Falsterbo
+Farsund
+Fayard
+Fecamp
+Fehmarn Belt
+Felixstowe
+Figueira da Foz
+Flensburg
+Floro
+Fonnes
+Forties Field
+Fosnavag
+Foynes
+Fraserburgh
+Fredericia
+Frederikshavn
+Frederiksvaerk
+Fredrikstad
+Fuglafjordur
+Fulmar Field
+Fynshav
+GB GRW
+GB GYS
+GB NHV
+GB RCS
+GB SHS
+GBBIF
+GBPME
+GBSEF
+GBSIL
+GBTYN VIA SKAW
+GIESELAU  SCHLEUSE
+GILLNET FISHING
+GILLNETTER CH 16
+GILLNETTER CH16
+GOING HOME TO JANNI
+GUARD VESSEL BUILDER
+Gavle
+Gdansk
+Gdynia
+Gedser
+Gemini OWF
+Genoa
+Gent
+Gibraltar
+Gilleleje
+Gina Krog Field
+Glueckstadt
+Gode Wind OWF
+Goole
+Gorm Field
+Gothenburg
+Grangemouth
+Greenock
+Greetsiel
+Grenaa
+Grimsby
+Grossenbrode
+Gruvon
+Gullfaks Field
+Haderslev
+Halden
+Halfdan Field
+Halmstad
+Hals
+Halstavik
+Hamburg
+Hamina
+Hanko
+Hanoytangen
+Hanstholm
+Hansweert
+Harlingen
+Hartlepool
+Haugesund
+Havneby
+He Dreiht OWF
+Heiligenhafen
+Helgoland
+Helsingborg
+Helsingor
+Helsinki
+Heroya
+Hirtshals
+Holbaek
+Holmestrand
+Holmsund
+Holtenau
+Hono
+Horns Rev OWF
+Hornsea OWF
+Horsens
+Horten
+Houston
+Hull
+Hundested
+Husoy
+Husum
+Hvasser
+Hvide Sande
+ISHEL
+ITCTA
+Iggesund
+Ijmuiden
+Immingham
+Inkoo
+Invergordon
+Ipswich
+Isafjordur
+Istanbul
+Ivar Aasen Field
+Izmir
+JADE AREA
+Jade Weser Port
+Jorf Lasfar
+Jossingfjord
+Juelsminde
+Kalajoki
+Kaliningrad
+Kalkgrund
+Kalmar
+Kalundborg
+Kantvik
+Kappeln
+Karlshamn
+Karlskrona
+Karlstad
+Kaskasi OWF
+Kemi
+Kerteminde
+Kiel
+Kiel Canal
+King's Lynn
+Klaipeda
+Klintholm
+Koege
+Kokkola
+Kolding
+Kolobrzeg
+Koper
+Koping
+Korsoer
+Kotka
+Kragero
+Kriegers Flak OWF
+Kristiansand
+Kristinehamn
+Kvinesdal
+LT KLT
+Laboe
+Laesoe
+Landskrona
+Langesund
+Langoya
+Larvik
+Las Palmas
+Lauterbach
+Lauwersoog
+Le Havre
+Le Legue
+Leba
+Leith
+Lemvig
+Lerkil
+Lidkoping
+Liepaja
+Lillesand
+Lillgrund OWF
+Lindo
+List
+Liverpool
+Lomma
+Lomond Field
+London
+Londonderry
+Luanda
+Lubeck
+Lubmin
+Lyngdal
+Lysekil
+Maasvlakte
+Malmo
+Mandal
+Mantyluoto
+Marstal
+Marstrand
+Meerdonk
+Meerwind OWF
+Melkoya
+Merkur OWF
+Mo i Rana
+Moerdijk
+Mongstad
+Montrose
+Moss
+Mukran
+Murmansk
+Muuga
+NL RTH
+NLD GOV VSL
+NO BVK
+NO HOR
+NO HRY
+NORTH LEASO
+NORTH SEA
+NORTHFLEET
+Naestved
+Nakskov
+Neuss
+Neustadt
+New Ross
+Newark
+Newcastle
+Nexo
+Nibe
+Norddeich
+Nordenham
+Norderney
+Norresundby
+Norrkoping
+North Shields
+Nyborg
+Nykobing F
+Nykobing Mors
+Nynashamn
+OFF FREDERIKSHAVEN
+OFFSHOR
+OFFSHORE
+OFFSHORE GERMANY
+OFFSHORE RES AREA  N
+OFFSHORE SITE
+Odda
+Odense
+Olpenitz
+Ornskoldsvik
+Oskarshamn
+Oslo
+Otterbacken
+Oulu
+Oxelosund
+PAPCN
+PATROL
+PATROL    VHF  16
+PATROL BALTIC SEA
+PATROLING
+PATROLLING
+PATTROLLING
+PBLJ
+PBLJ; BRODGAR FIELD
+PILOT OPERATION
+PL SSZ
+PLGDV
+Paldiski
+Palermo
+Panama
+Papenburg
+Paradip
+Parnu
+Parow
+Pasajes
+Peterhead
+Pori
+Porsgrunn
+Port Said
+Porvoo
+Primorsk
+Puttgarden
+QM
+ROD DK
+RU  ULU
+RU SPB
+RUARH
+RUL ED
+Raahe
+Rafnes
+Randers
+Rauma
+Rekefjord
+Rendsburg
+Reykjavik
+Riga
+Rio de Janeiro
+Risavika
+Risor
+Rochester
+Rodby
+Roedvig
+Roenne
+Roervig
+Ronneby
+Ronnskar
+Roskilde
+Rostock
+Rotterdam
+Rouen
+Rudkobing
+Runavik
+SE HND
+SE HSD
+SE NOT
+SE OER
+SE SLI
+SE SOR
+SE TRE
+SE VST
+SE WAL
+SEA TRIAL
+SEBAA
+SKAGAN" ,4   !  0  )
+Saint Petersburg
+Salacgriva
+Sandefjord
+Sandnes
+Sassnitz
+Sauda
+Schiedam
+Seaham
+Sete
+Seville
+Sharpness
+Sheerness
+Shoreham
+Sillamae
+Simrishamn
+Singapore
+Skaerbaek
+Skagen
+Skien
+Skive
+Skjold Field
+Skudeneshavn
+Slagen
+Sluiskil
+Smygehuk
+Soby
+Sodertalje
+Sofia OWF
+Solvesborg
+Sonderborg
+South Arne Field
+Southampton
+Spodsbjerg
+Stade
+Stavanger
+Stavern
+Stenungsund
+Stigsnaes
+Stockholm
+Stord
+Stralsund
+Strandby
+Struer
+Stubbekoebing
+Studstrup
+Suez
+Sunderland
+Svendborg
+Swinoujscie
+Szczecin
+THBORON
+TRAWL FISHING
+TRESLOVSLAGE
+Tallinn
+Tananger
+Teesport
+Tema
+Terneuzen
+Thamshavn
+Thisted
+Thor OWF
+Thorlakshofn
+Thorsminde
+Thyboron
+Tilbury
+Tjome
+Toenning
+Tofte
+Torshavn
+Travemunde
+Trelleborg
+Trondheim
+Turku
+Tvedestrand
+Tyne
+Tyra Field
+UNDER WAY USING ENGI
+Uddevalla
+Uki
+Ulsan
+Umm Qasr
+Unknown
+Ust-Luga
+Ustka
+Utsira
+VEN0
+Vadso
+Valetta
+Valhall Field
+Vallvik
+Varberg
+Varna
+Vasteras
+Vejle
+Velsen
+Ventspils
+Veracruz
+Vierow
+Vigo
+Visby
+Vlissingen
+Vordingborg
+Vyborg
+Vysotsk
+Wallhamn
+Warnemuende
+Warrenpoint
+Waterford
+Westdorpe
+Westervik
+Wilhelmshaven
+Willebroek
+Wilmington
+Wismar
+Wolgast
+Wyk auf Foehr
+Yantai
+Yme Field
+Ystad
+Zeebrugge
+Zwijndrecht
