@@ -237,14 +237,14 @@ def convert_to_datetime(text: str) -> str:
         year_day_month = text_bits[0].split("/")
         return f"{year_day_month[2]}-{year_day_month[1]}-{year_day_month[0]} {text_bits[1]}"
     else:
-        return "'NULL'"
+        return "NULL"
     
 #makes sure NULL appears in the table if 
 def handle_number(number):
     if pd.notna(number):
         return number
     else:
-        return "'NULL'"
+        return "NULL"
 
 #makes sure the text values have '' so sql can understand them, and turnes single ' into '', so that sql dosent think it is the end of the string (some names have ' in them)
 def handle_text(text: str) -> str:
@@ -252,7 +252,7 @@ def handle_text(text: str) -> str:
         text = text.replace("'", "''")
         return text
     else:
-        return "'Null'"
+        return "Null"
 
 def handle_number_column(imputer, data, column_name):
     data[column_name] = data[column_name].astype(str).apply(handle_number)
