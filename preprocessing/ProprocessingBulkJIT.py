@@ -68,7 +68,7 @@ def preprocess(csv_file_path):
     # -----------------------------------------------------------------------------------------#
     # -------converting to sql database and removing duplicates in the following section-------#
     # -----------------------------------------------------------------------------------------#
-    database = sql.create_connection("preprocessing/ais.db")
+    database = sql.create_connection("preprocessing/chunked_ais.db")
     
     sql.execute_query(database, """CREATE TABLE IF NOT EXISTS Ships (
         table_name TEXT NOT NULL UNIQUE);""")
