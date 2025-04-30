@@ -4,10 +4,12 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import OrdinalEncoder
+import matplotlib.pyplot as plt
+import numpy as np
 
 databse_path = "preprocessing/ais.db"
 time_error_rate = 3600
-time_lags = [2, 4, 8]  # in hours
+time_lags = [4, 8, 12]  # in hours
 exclude_columns = ['Destination', 'Cargo_type']
 max_ship_count = 10
 
@@ -32,6 +34,26 @@ def main():
     # Initialize and train model
     model = GradientBoostingClassifier(random_state=42)
     model.fit(X_train, y_train)
+    
+    print(model.feature_importances_)
+    
+
+    # And your feature names
+    feature_names = X_train.columns  # If X_train is a DataFrame
+
+    # Get feature importances and sort them
+    importances = model.feature_importances_
+    indices = np.argsort(importances)[::-1]  # Sort in descending order
+
+    # Plot
+    plt.figure(figsize=(10, 6))
+    plt.title("Feature Importances")
+    plt.bar(range(len(importances)), importances[indices], align="center")
+    plt.xticks(range(len(importances)), feature_names[indices], rotation=90)
+    plt.tight_layout()
+    plt.show()
+
+
 
     # Make predictions
     y_pred = model.predict(X_test)
