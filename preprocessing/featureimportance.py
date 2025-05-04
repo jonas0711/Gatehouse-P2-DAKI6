@@ -4,17 +4,37 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import OrdinalEncoder
+import matplotlib.pyplot as plt
+import numpy as np
+
+####################################
+#---------Settings (Start)---------#
+####################################
 
 databse_path = "preprocessing/ais.db"
-time_error_rate = 3600
-time_lags = [2, 4, 8]  # in hours
-exclude_columns = ['Destination', 'Cargo_type']
 max_ship_count = 10
+use_all_ships = False #if true the model will train on all ships
+
+use_includes = False # will only include ships with the destination in the include list
+use_excludes = False # will exclude any ships with a destination in the exlude list
+include = []
+exclude = []
+
+time_lags = [4, 8, 12]  # in hours
+exclude_columns_from_lag = ['Destination', 'Cargo_type']
+exclude_colums_from_traning = [] #excluded after time lagged variables are made
+
+####################################
+#----------Settings (End)----------#
+####################################
 
 def main():
     ships_dataframe = get_ship_data("Ships")
     
     data = pd.DataFrame()
+    
+    if use_all_ships:
+        max_ship_count, _ = ships_dataframe.shape
     
     for i, ship in enumerate(ships_dataframe["table_name"]):
         if i < max_ship_count:
@@ -22,6 +42,13 @@ def main():
             
     encoder = OrdinalEncoder()
     data["Cargo_type"] = encoder.fit_transform(data[["Cargo_type"]])
+    
+    if use_includes:
+        data = data[data["Destination"].isin(include)]     
+    if use_excludes:
+        data = data[~data["Destination"].isin(include)]
+    if len(exclude_colums_from_traning) > 0:
+        data = data.drop(columns=exclude_colums_from_traning)
     
     y = data['Destination']
     x = data.drop(columns=['Timestamp', 'Destination'])
@@ -32,6 +59,8 @@ def main():
     # Initialize and train model
     model = GradientBoostingClassifier(random_state=42)
     model.fit(X_train, y_train)
+    
+    print(model.feature_importances_)
 
     # Make predictions
     y_pred = model.predict(X_test)
@@ -40,8 +69,20 @@ def main():
     print("Accuracy:", accuracy_score(y_test, y_pred))
     print("Classification Report:\n", classification_report(y_test, y_pred))
     
-            
-    print(data)
+    # And your feature names
+    feature_names = X_train.columns  # If X_train is a DataFrame
+
+    # Get feature importances and sort them
+    importances = model.feature_importances_
+    indices = np.argsort(importances)[::-1]  # Sort in descending order
+
+    # Plot
+    plt.figure(figsize=(10, 6))
+    plt.title("Feature Importances")
+    plt.bar(range(len(importances)), importances[indices], align="center")
+    plt.xticks(range(len(importances)), feature_names[indices], rotation=90)
+    plt.tight_layout()
+    plt.show()
 
     
 
@@ -55,7 +96,7 @@ def get_datapoints_from_ship(df: pd.DataFrame) -> pd.DataFrame:
     # Initialize result with original data
     result_df = df.copy()
 
-    cols_to_shift = [col for col in df.columns if col not in exclude_columns]
+    cols_to_shift = [col for col in df.columns if col not in exclude_columns_from_lag]
 
     # Create lagged variables for each time lag
     for lag in time_lags:
