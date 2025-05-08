@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import OrdinalEncoder
 import matplotlib.pyplot as plt
 import numpy as np
+import json
 
 ####################################
 #---------Settings (Start)---------#
@@ -15,74 +16,84 @@ databse_path = "preprocessing/ais.db"
 max_ship_count = 100
 use_all_ships = False #if true the model will train on all ships
 
-use_includes = False # will only include ships with the destination in the include list
+use_includes = True # will only include ships with the destination in the include list
 use_excludes = False # will exclude any ships with a destination in the exlude list
-include = []
+include = ["Skagen", "Esbjerg", "Copenhagen", "Frederikshavn", "Hvide Sande"]
 exclude = []
 
 time_lags = [4, 8, 12]  # in hours
 exclude_columns_from_lag = ['Destination', 'Cargo_type']
 exclude_colums_from_traning = [] #excluded after time lagged variables are made
 
+#port mapping
+port_ship_mapping_path = "port_ship_mapping.json"  # Path to your JSON file
+target_ports = ["Skagen", "Esbjerg", "Copenhagen", "Frederikshavn", "Hvide Sande"]  # Fill in desired port names
+max_ship_count_per_port = 20  # Max unique ships per destination por
+
 ####################################
 #----------Settings (End)----------#
 ####################################
 
 def main():
-    ships_dataframe = get_ship_data("Ships")
-    
+    # Load port -> ships mapping from JSON
+    with open(port_ship_mapping_path, "r") as f:
+        port_to_ships = json.load(f)
+
+    # Build list of ship tables to use based on specified ports
+    selected_ship_tables = set()
+    for port in target_ports:
+        ship_list = port_to_ships.get(port, [])
+        limited_ships = ship_list[:max_ship_count_per_port]
+        print(f"Port '{port}': using {len(limited_ships)} ships")
+        selected_ship_tables.update(limited_ships)
+
     data = pd.DataFrame()
-    effective_max_ship_count = max_ship_count
 
-    if use_all_ships:
-        effective_max_ship_count, _ = ships_dataframe.shape
-    
-    for i, ship in enumerate(ships_dataframe["table_name"]):
-        if i < effective_max_ship_count:
-            print(f"concating: {i} / {effective_max_ship_count}")
-            data = pd.concat([data, get_datapoints_from_ship(get_ship_data(ship))])
+    for i, ship_table in enumerate(selected_ship_tables):
+        print(f"Concatenating: {i + 1} / {len(selected_ship_tables)} -> {ship_table}")
+        ship_df = get_ship_data(ship_table)
+        if not ship_df.empty:
+            data = pd.concat([data, get_datapoints_from_ship(ship_df)])
 
-    print("Encoding cargo type")  
+    if data.empty:
+        print("No data loaded. Exiting.")
+        return
+
+    print("Encoding cargo type")
     encoder = OrdinalEncoder()
     data["Cargo_type"] = encoder.fit_transform(data[["Cargo_type"]])
-    
+
     print("Processing destinations")
     if use_includes:
-        data = data[data["Destination"].isin(include)]     
+        data = data[data["Destination"].isin(include)]
     if use_excludes:
-        data = data[~data["Destination"].isin(include)]
+        data = data[~data["Destination"].isin(exclude)]
     if len(exclude_colums_from_traning) > 0:
         data = data.drop(columns=exclude_colums_from_traning)
-    
+
     y = data['Destination']
     x = data.drop(columns=['Timestamp', 'Destination'])
 
     # Split data
-    print("Test train split")
+    print("Train/test split")
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
-    print("Traning Gradient boosting model")
-    # Initialize and train model
+    print("Training Gradient Boosting model")
     model = GradientBoostingClassifier(random_state=42)
     model.fit(X_train, y_train)
-    
+
     print(model.feature_importances_)
 
-    # Make predictions
     y_pred = model.predict(X_test)
 
     # Evaluate model
     print("Accuracy:", accuracy_score(y_test, y_pred))
     print("Classification Report:\n", classification_report(y_test, y_pred))
-    
-    # And your feature names
-    feature_names = X_train.columns  # If X_train is a DataFrame
 
-    # Get feature importances and sort them
+    feature_names = X_train.columns
     importances = model.feature_importances_
-    indices = np.argsort(importances)[::-1]  # Sort in descending order
+    indices = np.argsort(importances)[::-1]
 
-    # Plot
     plt.figure(figsize=(10, 6))
     plt.title("Feature Importances")
     plt.bar(range(len(importances)), importances[indices], align="center")

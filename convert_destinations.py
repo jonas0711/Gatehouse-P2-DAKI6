@@ -17,7 +17,7 @@ for standard, alternativer in destinations_data.items():
 
 # --- Trin 2: Forbind til ais.db og hent alle skibstabeller ---
 
-db_path = 'ais.db'  # Sti til databasen
+db_path = 'preprocessing/ais.db'  # Sti til databasen
 if not os.path.exists(db_path):
     print(f"Databasefilen '{db_path}' blev ikke fundet. Scriptet stopper.")
     exit(1)
